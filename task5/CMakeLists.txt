@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(task5-1)
+project(task5)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   roscpp
   std_msgs
-  
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,18 +49,18 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
+   add_message_files(
+     FILES
+     imaginary_msg.msg
 #   Message2.msg
-# )
+    )
 
-## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+# Generate services in the 'srv' folder
+  add_service_files(
+     FILES
+     words.srv
+ #   Service2.srv
+  )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -69,8 +69,12 @@ find_package(catkin REQUIRED COMPONENTS
 #   Action2.action
 # )
 
-## Generate added messages and services with any dependencies listed here
-#generate_messages( DEPENDENCIES geometry_msgs  std_msgs )
+# Generate added messages and services with any dependencies listed here
+generate_messages( 
+  DEPENDENCIES 
+  #geometry_msgs  
+  std_msgs 
+  )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -104,7 +108,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES task5-1
-#  CATKIN_DEPENDS geometry_msgs rospy std_msgs
+  CATKIN_DEPENDS message_runtime geometry_msgs rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -133,7 +137,12 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(Counter_pub src/publisher_counter.cpp)
-
+add_executable(Counter_sub src/subscriber_counter.cpp)
+add_executable(Counter_pub1 src/Pub_Sub_counter.cpp)
+add_executable(Num_pub src/img.cpp)
+add_executable(word_counter_server src/word_server.cpp)
+add_executable(word_counter_client src/word_client.cpp)
+# add_executable(sub_1 src/Pub_Sub_counter.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -143,14 +152,23 @@ add_executable(Counter_pub src/publisher_counter.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(Counter_pub  ${Counter_pub_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
+add_dependencies(Counter_sub  ${Counter_sub_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(Counter_pub1  ${Counter_pub1_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(Num_pub  ${Num_pub_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(word_counter_server   ${word_counter_server_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(word_counter_client   ${word_counter_client_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(sub_1  ${Counter_pub_node_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 ## Specify libraries to link a library or executable target against
 target_link_libraries(Counter_pub  ${catkin_LIBRARIES} )
-
+target_link_libraries(Counter_sub  ${catkin_LIBRARIES} )
+target_link_libraries(Counter_pub1  ${catkin_LIBRARIES} )
+target_link_libraries(Num_pub  ${catkin_LIBRARIES} )
+target_link_libraries(word_counter_server ${catkin_LIBRARIES})
+target_link_libraries(word_counter_client ${catkin_LIBRARIES})
+# target_link_libraries(sub_1  ${catkin_LIBRARIES} )
 #############
 ## Install ##
 #############
-
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 

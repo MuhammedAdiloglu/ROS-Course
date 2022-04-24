@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp",
+        "string_view": "cpp",
+        "tuple": "cpp",
+        "string": "cpp"
+    },
+    "python.autoComplete.extraPaths": [
+        "/home/muhammed/RosCourse_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ],
+    "C_Cpp.errorSquiggles": "Enabled",
+    "python.analysis.extraPaths": [
+        "/home/muhammed/RosCourse_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ]
+}
